@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Питання без гугла</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0f0f1a;
+    color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .screen {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 24px 20px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .screen.active {
+    display: flex;
+  }
+
+  /* ── ЕКРАН 0 ── */
+  #screen0 {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
+    min-height: 100vh;
+  }
+
+  .org-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .main-title {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  .main-subtitle {
+    font-size: 14px;
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .main-tagline {
+    font-size: 13px;
+    color: #777;
+    text-align: center;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 48px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s;
+  }
+  .btn-start:active { opacity: 0.8; }
+
+  /* ── ПИТАННЯ ── */
+  .q-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 10px;
+  }
+
+  .q-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #f0f0f0;
+    margin-bottom: 18px;
+  }
+
+  .options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 0;
+    transition: opacity 0.15s;
+  }
+  .option:active { opacity: 0.7; }
+
+  .option-circle {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .option.selected .option-circle {
+    border-color: #a78bfa;
+    background: #a78bfa;
+  }
+
+  .option.selected .option-circle::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .option-text {
+    font-size: 15px;
+    color: #ddd;
+    line-height: 1.4;
+  }
+
+  .option.selected .option-text {
+    color: #fff;
+  }
+
+  /* ── ВАЛІДАЦІЯ ── */
+  .validation {
+    display: none;
+    margin-top: 16px;
+    background: #1e1b3a;
+    border-left: 3px solid #a78bfa;
+    border-radius: 10px;
+    padding: 14px 14px;
+    width: 100%;
+  }
+
+  .validation.visible {
+    display: block;
+  }
+
+  .validation-text {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .btn-next {
+    display: none;
+    margin-top: 18px;
+    width: 100%;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-next.visible { display: block; }
+  .btn-next:active { opacity: 0.8; }
+
+  /* ── ФІНАЛ ── */
+  #screen4 {
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+  .final-emoji {
+    font-size: 52px;
+    margin-bottom: 16px;
+  }
+
+  .final-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: #a78bfa;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .final-text {
+    font-size: 15px;
+    color: #bbb;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 320px;
+  }
+
+  .final-reward {
+    background: #1e1b3a;
+    border: 1px solid #7c3aed;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    max-width: 320px;
+  }
+
+  .final-reward p {
+    font-size: 15px;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .final-reward strong {
+    color: #a78bfa;
+  }
+
+  .final-org {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ЕКРАН 0: ЗАСТАВКА -->
+<div id="screen0" class="screen active">
+  <p class="org-label">ГО «Зміни Світ» представляє</p>
+  <div class="main-title">Питання<br>без гугла</div>
+  <p class="main-subtitle">10 великих запитань</p>
+  <p class="main-tagline">Створи свій світоглядний профіль</p>
+  <button class="btn-start" onclick="showScreen(1)">Почати безкоштовно</button>
+</div>
+
+<!-- ЕКРАН 1: ПИТАННЯ 1 (колишнє питання 3) -->
+<div id="screen1" class="screen">
+  <p class="q-label">Розминка · 1 з 3</p>
+  <p class="q-text">До твого народження світ існував?</p>
+  <div class="options" id="opts1">
+    <label class="option" onclick="selectOption(1, 0, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Так — очевидно</span>
+    </label>
+    <label class="option" onclick="selectOption(1, 1, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Ні — без мене немає світу</span>
+    </label>
+    <label class="option" onclick="selectOption(1, 2, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Не знаю</span>
+    </label>
+  </div>
+  <div class="validation" id="val1">
+    <p class="validation-text" id="val1-text"></p>
+  </div>
+  <button class="btn-next" id="next1" onclick="showScreen(2)">Наступне питання →</button>
+</div>
+
+<!-- ЕКРАН 2: ПИТАННЯ 2 -->
+<div id="screen2" class="screen">
+  <p class="q-label">Розминка · 2 з 3</p>
+  <p class="q-text">Якщо дерево падає в лісі, де нікого немає — воно видає звук?</p>
+  <div class="options" id="opts2">
+    <label class="option" onclick="selectOption(2, 0, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Так — фізичні хвилі є</span>
+    </label>
+    <label class="option" onclick="selectOption(2, 1, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Ні — без вуха немає звуку</span>
+    </label>
+    <label class="option" onclick="selectOption(2, 2, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Не знаю</span>
+    </label>
+  </div>
+  <div class="validation" id="val2">
+    <p class="validation-text" id="val2-text"></p>
+  </div>
+  <button class="btn-next" id="next2" onclick="showScreen(3)">Наступне питання →</button>
+</div>
+
+<!-- ЕКРАН 3: ПИТАННЯ 3 (колишнє питання 1) -->
+<div id="screen3" class="screen">
+  <p class="q-label">Розминка · 3 з 3</p>
+  <p class="q-text">Якби всі люди на планеті вирішили, що катування дітей — це нормально, воно б таким і стало?</p>
+  <div class="options" id="opts3">
+    <label class="option" onclick="selectOption(3, 0, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Ні — залишиться жахливим</span>
+    </label>
+    <label class="option" onclick="selectOption(3, 1, this)">
+      <div class="option-circle"></div>
+      <span class="option-text">Так — якщо всі згодні, то норма</span>
+    </label>
+  </div>
+  <div class="validation" id="val3">
+    <p class="validation-text" id="val3-text"></p>
+  </div>
+  <button class="btn-next" id="next3" onclick="showScreen(4)">Завершити розминку →</button>
+</div>
+
+<!-- ЕКРАН 4: ФІНАЛ -->
+<div id="screen4" class="screen">
+  <div class="final-emoji">🧠</div>
+  <div class="final-title">Розминка пройдена!</div>
+  <p class="final-text">
+    Це були лише 3 вступні питання.<br>
+    Попереду ще <strong style="color:#a78bfa">10 великих запитань</strong> — і твій справжній світоглядний профіль.
+  </p>
+  <div class="final-reward">
+    <p>Підійди до волонтера <strong>ГО «Зміни Світ»</strong> — він задасть тобі ще 10 питань.<br><br>
+    Відповіси на всі — отримаєш <strong>🍫 шоколадку або 🥤 колу</strong>.</p>
+  </div>
+  <p class="final-org">ГО «Зміни Світ»</p>
+</div>
+
+<script>
+  const validations = {
+    1: [
+      "Тобто реальність існує незалежно від тебе. А тепер ще крок: якщо світ існував до тебе — він колись почався. І якщо він почався — хтось або щось було до нього. Це питання, яке не відпускає.",
+      "Це позиція соліпсизму — і вона логічно бездоганна. Але тоді: звідки взялися інші люди, які теж так думають? І чи існуватиме світ після тебе?",
+      "Чесно. Декарт теж починав з сумніву — і дійшов до «Я мислю, отже існую». Але якщо ти існуєш — звідки ти взявся? Це питання варте того, щоб шукати відповідь."
+    ],
+    2: [
+      "Ти мислиш як реаліст — світ існує незалежно від спостерігача. Це сміливо: адже квантова фізика каже інше. Але саме ця позиція відкриває питання: якщо реальність існує сама по собі — хто або що є її основою?",
+      "Ти щойно погодився з Джорджем Берклі: існує лише те, що сприймається. Але тоді: якщо ніхто не дивиться на Місяць — він зникає? І хто «тримає» реальність, коли ніхто не дивиться?",
+      "Це найчесніша відповідь — і найфілософськіша. Саме з цього «не знаю» починається справжній пошук. Сократ казав: «Я знаю лише те, що нічого не знаю» — і це зробило його наймудрішим."
+    ],
+    3: [
+      "Саме так думав Іммануїл Кант. Ти щойно визнав, що існує мораль, яка не залежить від думки більшості. Це називається об'єктивна етика — і це одне з найглибших питань філософії.",
+      "Це чесна позиція — її поділяв Жан-Поль Сартр. Але вона має ціну: якщо мораль відносна, то й засудити Гітлера неможливо — він просто «грав за своїми правилами». Чи готовий ти прийняти цей висновок?"
+    ]
+  };
+
+  function selectOption(qNum, optIndex, el) {
+    const opts = document.querySelectorAll('#opts' + qNum + ' .option');
+    opts.forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+
+    const valEl = document.getElementById('val' + qNum);
+    const valText = document.getElementById('val' + qNum + '-text');
+    valText.textContent = validations[qNum][optIndex];
+    valEl.classList.add('visible');
+
+    const nextBtn = document.getElementById('next' + qNum);
+    nextBtn.classList.add('visible');
+  }
+
+  function showScreen(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen' + n).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
