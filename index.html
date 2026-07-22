@@ -2,201 +2,516 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Питання без Гугла</title>
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body {
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #000;
-    color: #f0f0f0;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    background: #000;
+  }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #f0f0f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
   .screen {
     display: none;
-    position: fixed;
-    inset: 0;
-    padding: 24px 20px;
+    min-height: 100vh;
+    width: 100%;
+    padding: 24px 20px 32px;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
+    background: #000;
   }
-  .screen.active { display: flex; }
-  .logo-wrap { margin-bottom: 12px; text-align: center; flex-shrink: 0; }
-  .logo-img { width: 110px; height: auto; }
 
-  /* START */
+  .screen.active {
+    display: flex;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+  }
+
+  /* ===== LOGO ===== */
+  .logo-wrap {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .logo-img {
+    width: 120px;
+    max-width: 45vw;
+    height: auto;
+    display: inline-block;
+  }
+
+  /* ===== START SCREEN ===== */
   #screen-start {
     justify-content: center;
     text-align: center;
-    background: linear-gradient(160deg, #0a0a0a 0%, #0d0d1a 50%, #0a1a30 100%);
+    background: #000;
   }
+
   .start-tag {
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-    color: #f5a623; margin-bottom: 16px; opacity: 0.85;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f5a623;
+    margin-bottom: 18px;
+    opacity: 0.9;
+    line-height: 1.5;
   }
+
   .start-title {
-    font-size: clamp(28px, 8vw, 42px); font-weight: 900;
-    line-height: 1.1; color: #fff; margin-bottom: 8px; letter-spacing: -1px;
+    font-size: clamp(34px, 10vw, 46px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
   }
-  .start-sub1 { font-size: 14px; color: #f5a623; margin-bottom: 4px; font-weight: 600; letter-spacing: 1px; }
-  .start-sub2 { font-size: 13px; color: #aaa; margin-bottom: 32px; }
+
+  .start-sub1 {
+    font-size: 15px;
+    color: #f5a623;
+    margin-bottom: 6px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .start-sub2 {
+    font-size: 14px;
+    color: #b5b5b5;
+    margin-bottom: 38px;
+    line-height: 1.5;
+  }
+
   .btn-start {
-    background: #f5a623; color: #000; border: none;
-    padding: 15px 48px; font-size: 17px; font-weight: 800;
-    border-radius: 50px; cursor: pointer;
-    box-shadow: 0 4px 20px rgba(245,166,35,0.4);
-    transition: transform 0.15s;
+    width: 100%;
+    max-width: 280px;
+    background: #f5a623;
+    color: #000;
+    border: none;
+    padding: 16px 28px;
+    font-size: 17px;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.35);
   }
-  .btn-start:active { transform: scale(0.97); }
 
-  /* QUESTION */
-  .q-screen { justify-content: flex-start; background: #000; }
+  .btn-start:hover {
+    transform: scale(1.03);
+  }
+
+  .btn-start:active {
+    transform: scale(0.98);
+  }
+
+  /* ===== QUESTION SCREEN ===== */
+  .q-screen {
+    justify-content: flex-start;
+    background: #000;
+  }
+
+  .q-screen .content {
+    padding-top: 8px;
+  }
+
+  .q-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f5a623;
+    margin-bottom: 18px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
   .q-text {
-    font-size: clamp(17px, 5vw, 22px); font-weight: 700;
-    line-height: 1.4; color: #fff; margin-bottom: 20px;
-    align-self: flex-start; flex-shrink: 0;
+    font-size: clamp(21px, 6vw, 27px);
+    font-weight: 800;
+    line-height: 1.32;
+    color: #ffffff;
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
   }
-  .options { width: 100%; flex-shrink: 0; }
-  .option-row {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 11px 0; cursor: pointer; border-bottom: 1px solid #1a1a1a;
-  }
-  .option-row:last-child { border-bottom: none; }
-  .option-circle {
-    width: 20px; height: 20px; min-width: 20px;
-    border-radius: 50%; border: 2px solid #555; margin-top: 2px;
-    transition: border-color 0.2s, background 0.2s;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .option-circle.selected { border-color: #f5a623; background: #f5a623; }
-  .option-circle.selected::after {
-    content: ''; width: 8px; height: 8px;
-    border-radius: 50%; background: #000;
-  }
-  .option-text { font-size: 15px; color: #ddd; line-height: 1.4; }
-  .validation {
-    display: none; background: #111; border-left: 3px solid #f5a623;
-    border-radius: 8px; padding: 13px 15px; margin-top: 16px;
-    font-size: 13px; line-height: 1.6; color: #ccc; width: 100%; flex-shrink: 0;
-  }
-  .validation.visible { display: block; }
-  .validation strong { color: #f5a623; }
-  .btn-next {
-    display: none; margin-top: 18px; background: #f5a623; color: #000;
-    border: none; padding: 14px 40px; font-size: 16px; font-weight: 800;
-    border-radius: 50px; cursor: pointer; align-self: center; flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(245,166,35,0.35); transition: transform 0.15s;
-  }
-  .btn-next.visible { display: block; }
-  .btn-next:active { transform: scale(0.97); }
 
-  /* FINAL */
+  /* ===== OPTIONS ===== */
+  .options {
+    width: 100%;
+  }
+
+  .option-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 15px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #202020;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .option-row:last-child {
+    border-bottom: none;
+  }
+
+  .option-circle {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    border: 2px solid #666;
+    margin-top: 1px;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .option-circle.selected {
+    border-color: #f5a623;
+    background: #f5a623;
+  }
+
+  .option-circle.selected::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #000;
+  }
+
+  .option-text {
+    font-size: 16px;
+    color: #e0e0e0;
+    line-height: 1.45;
+  }
+
+  /* ===== VALIDATION CARD ===== */
+  .validation {
+    display: none;
+    background: #111;
+    border-left: 3px solid #f5a623;
+    border-radius: 10px;
+    padding: 15px 16px;
+    margin-top: 22px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #d0d0d0;
+    width: 100%;
+  }
+
+  .validation.visible {
+    display: block;
+  }
+
+  .validation strong {
+    color: #f5a623;
+  }
+
+  .btn-next {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 24px auto 0;
+    background: #f5a623;
+    color: #000;
+    border: none;
+    padding: 15px 26px;
+    font-size: 16px;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.15s;
+    box-shadow: 0 4px 16px rgba(245,166,35,0.35);
+  }
+
+  .btn-next.visible {
+    display: block;
+  }
+
+  .btn-next:hover {
+    transform: scale(1.03);
+  }
+
+  .btn-next:active {
+    transform: scale(0.98);
+  }
+
+  /* ===== FINAL SCREEN ===== */
   #screen-final {
     justify-content: center;
-    background: linear-gradient(160deg, #0a0a0a 0%, #0a1a30 100%);
+    background: #000;
     text-align: center;
   }
+
   .final-title {
-    font-size: clamp(20px, 6vw, 26px); font-weight: 900;
-    color: #fff; margin-bottom: 10px; line-height: 1.2;
+    font-size: clamp(27px, 8vw, 36px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 14px;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
   }
-  .final-desc { font-size: 14px; color: #bbb; line-height: 1.6; margin-bottom: 16px; }
+
+  .final-desc {
+    font-size: 16px;
+    color: #c5c5c5;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .final-desc strong {
+    color: #f5a623;
+  }
+
   .final-highlight {
-    background: #f5a623; color: #000; border-radius: 12px;
-    padding: 14px 18px; font-size: 15px; font-weight: 700;
-    margin-bottom: 16px; line-height: 1.5; width: 100%;
+    background: #f5a623;
+    color: #000;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.55;
   }
-  .final-safe { font-size: 12px; color: #555; line-height: 1.6; }
+
+  .final-highlight strong {
+    font-weight: 900;
+  }
+
+  .final-safe {
+    font-size: 13px;
+    color: #8a8a8a;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 360px) {
+    .screen {
+      padding: 20px 16px 28px;
+    }
+
+    .option-text {
+      font-size: 15px;
+    }
+
+    .validation {
+      font-size: 14px;
+    }
+  }
+
+  @media (min-height: 740px) {
+    .q-screen .content {
+      padding-top: 24px;
+    }
+  }
 </style>
 </head>
+
 <body>
 
-<!-- SCREEN 0: START -->
+<!-- ========== SCREEN 0: START ========== -->
 <div id="screen-start" class="screen active">
-  <div class="logo-wrap">
-    <img class="logo-img" id="logo-start" src="" alt="Зміни Світ">
+  <div class="content">
+    <div class="logo-wrap">
+      <img class="logo-img" src="Logo%20ZS%20vertical.png" alt="Зміни Світ">
+    </div>
+
+    <p class="start-tag">ГО «Зміни Світ» представляє</p>
+    <h1 class="start-title">ПИТАННЯ<br>БЕЗ ГУГЛА</h1>
+    <p class="start-sub1">10 великих запитань</p>
+    <p class="start-sub2">Створи свій світоглядний профіль</p>
+
+    <button class="btn-start" onclick="goTo('screen-q1')">Почати</button>
   </div>
-  <p class="start-tag">ГО «Зміни Світ» представляє</p>
-  <h1 class="start-title">ПИТАННЯ<br>БЕЗ ГУГЛА</h1>
-  <p class="start-sub1">10 великих запитань</p>
-  <p class="start-sub2">Створи свій світоглядний профіль</p>
-  <button class="btn-start" onclick="goTo('screen-q1')">Почати</button>
 </div>
 
-<!-- SCREEN Q1 -->
+<!-- ========== SCREEN Q1 ========== -->
 <div id="screen-q1" class="screen q-screen">
-  <p class="q-text">До твого народження світ існував?</p>
-  <div class="options">
-    <label class="option-row" onclick="selectOption('q1','a')">
-      <div class="option-circle" id="q1-a-circle"></div>
-      <span class="option-text">Так — очевидно</span>
-    </label>
-    <label class="option-row" onclick="selectOption('q1','b')">
-      <div class="option-circle" id="q1-b-circle"></div>
-      <span class="option-text">Ні — без мене немає світу</span>
-    </label>
-    <label class="option-row" onclick="selectOption('q1','c')">
-      <div class="option-circle" id="q1-c-circle"></div>
-      <span class="option-text">Не знаю</span>
-    </label>
+  <div class="content">
+    <p class="q-label">Розминка · 1 з 3</p>
+    <p class="q-text">До твого народження світ існував?</p>
+
+    <div class="options" id="opts-q1">
+      <label class="option-row" onclick="selectOption('q1','a')">
+        <div class="option-circle" id="q1-a-circle"></div>
+        <span class="option-text">Так — очевидно</span>
+      </label>
+
+      <label class="option-row" onclick="selectOption('q1','b')">
+        <div class="option-circle" id="q1-b-circle"></div>
+        <span class="option-text">Ні — без мене немає світу</span>
+      </label>
+
+      <label class="option-row" onclick="selectOption('q1','c')">
+        <div class="option-circle" id="q1-c-circle"></div>
+        <span class="option-text">Не знаю</span>
+      </label>
+    </div>
+
+    <div class="validation" id="val-q1"></div>
+    <button class="btn-next" id="next-q1" onclick="goTo('screen-q2')">Наступне питання</button>
   </div>
-  <div class="validation" id="val-q1"></div>
-  <button class="btn-next" id="next-q1" onclick="goTo('screen-q2')">Наступне питання</button>
 </div>
 
-<!-- SCREEN Q2 -->
+<!-- ========== SCREEN Q2 ========== -->
 <div id="screen-q2" class="screen q-screen">
-  <p class="q-text">Якщо дерево падає в лісі, де нікого немає — воно видає звук?</p>
-  <div class="options">
-    <label class="option-row" onclick="selectOption('q2','a')">
-      <div class="option-circle" id="q2-a-circle"></div>
-      <span class="option-text">Так — фізичні хвилі є</span>
-    </label>
-    <label class="option-row" onclick="selectOption('q2','b')">
-      <div class="option-circle" id="q2-b-circle"></div>
-      <span class="option-text">Ні — без вуха немає звуку</span>
-    </label>
-    <label class="option-row" onclick="selectOption('q2','c')">
-      <div class="option-circle" id="q2-c-circle"></div>
-      <span class="option-text">Не знаю</span>
-    </label>
+  <div class="content">
+    <p class="q-label">Розминка · 2 з 3</p>
+    <p class="q-text">Якщо дерево падає в лісі, де нікого немає — воно видає звук?</p>
+
+    <div class="options" id="opts-q2">
+      <label class="option-row" onclick="selectOption('q2','a')">
+        <div class="option-circle" id="q2-a-circle"></div>
+        <span class="option-text">Так — фізичні хвилі є</span>
+      </label>
+
+      <label class="option-row" onclick="selectOption('q2','b')">
+        <div class="option-circle" id="q2-b-circle"></div>
+        <span class="option-text">Ні — без вуха немає звуку</span>
+      </label>
+
+      <label class="option-row" onclick="selectOption('q2','c')">
+        <div class="option-circle" id="q2-c-circle"></div>
+        <span class="option-text">Не знаю</span>
+      </label>
+    </div>
+
+    <div class="validation" id="val-q2"></div>
+    <button class="btn-next" id="next-q2" onclick="goTo('screen-q3')">Наступне питання</button>
   </div>
-  <div class="validation" id="val-q2"></div>
-  <button class="btn-next" id="next-q2" onclick="goTo('screen-q3')">Наступне питання</button>
 </div>
 
-<!-- SCREEN Q3 -->
+<!-- ========== SCREEN Q3 ========== -->
 <div id="screen-q3" class="screen q-screen">
-  <p class="q-text">Якби всі люди на планеті вирішили, що катування дітей — це нормально, воно б таким і стало?</p>
-  <div class="options">
-    <label class="option-row" onclick="selectOption('q3','a')">
-      <div class="option-circle" id="q3-a-circle"></div>
-      <span class="option-text">Ні — залишиться жахливим</span>
-    </label>
-    <label class="option-row" onclick="selectOption('q3','b')">
-      <div class="option-circle" id="q3-b-circle"></div>
-      <span class="option-text">Так — якщо всі згодні, то норма</span>
-    </label>
+  <div class="content">
+    <p class="q-label">Розминка · 3 з 3</p>
+    <p class="q-text">Якби всі люди на планеті вирішили, що катування дітей — це нормально, воно б таким і стало?</p>
+
+    <div class="options" id="opts-q3">
+      <label class="option-row" onclick="selectOption('q3','a')">
+        <div class="option-circle" id="q3-a-circle"></div>
+        <span class="option-text">Ні — залишиться жахливим</span>
+      </label>
+
+      <label class="option-row" onclick="selectOption('q3','b')">
+        <div class="option-circle" id="q3-b-circle"></div>
+        <span class="option-text">Так — якщо всі згодні, то норма</span>
+      </label>
+    </div>
+
+    <div class="validation" id="val-q3"></div>
+    <button class="btn-next" id="next-q3" onclick="goTo('screen-final')">Далі</button>
   </div>
-  <div class="validation" id="val-q3"></div>
-  <button class="btn-next" id="next-q3" onclick="goTo('screen-final')">Далі</button>
 </div>
 
-<!-- SCREEN FINAL -->
+<!-- ========== SCREEN FINAL ========== -->
 <div id="screen-final" class="screen">
-  <div class="logo-wrap">
-    <img class="logo-img" id="logo-final" src="" alt="Зміни Світ">
+  <div class="content">
+    <div class="logo-wrap">
+      <img class="logo-img" src="Logo%20ZS%20vertical.png" alt="Зміни Світ">
+    </div>
+
+    <h2 class="final-title">Розминка пройдена!</h2>
+
+    <p class="final-desc">
+      Це були лише 3 вступні питання.<br>
+      Попереду ще <strong>10 великих запитань</strong> — і вони глибші.
+    </p>
+
+    <div class="final-highlight">
+      Підійди до волонтера — він задасть тобі 10 питань.<br>
+      Дай відповіді і отримай <strong>шоколадку або колу!</strong>
+    </div>
+
+    <p class="final-safe">
+      Без тиску і без зобов'язань.<br>
+      Можеш піти в будь-який момент.
+    </p>
   </div>
-  <h2 class="final-title">Розминка пройдена!</h2>
-  <p class="final-desc">Це були лише 3 вступні питання.<br>Попереду ще <strong style="color:#f5a623">10 великих запитань</strong> — і вони глибші.</p>
-  <div class="final-highlight">
-    Підійди до волонтера — він задасть тобі 10 питань.<br>
-    Дай відповіді і отримай <strong>шоколадку або колу!</strong>
-  </div>
-  <p class="final-safe">Без тиску і без зобов'язань.<br>Можеш піти в будь-який момент — ми просто любимо цікаві розмови.</p>
 </div>
 
 <script>
-const LOGO = "data:image/png;base64,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
+  // ---- Navigation ----
+  function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(function(screen) {
+      screen.classList.remove('active');
+    });
+
+    document.getElementById(screenId).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ---- Validations ----
+  const validations = {
+    q1: {
+      a: '<strong>Тобто реальність існує незалежно від тебе.</strong> А тепер ще крок: якщо світ існував до тебе — він колись почався. І якщо він почався — звідки він взявся? Це питання, яке не відпускає.',
+      b: 'Це позиція соліпсизму — і вона логічно бездоганна. Але тоді: звідки взялися інші люди, які теж так думають? І чи існуватиме світ після тебе?',
+      c: 'Чесно. Декарт теж починав з сумніву — і дійшов до <strong>"Я мислю, отже існую"</strong>. Але якщо ти існуєш — звідки ти взявся? Це питання варте того, щоб шукати відповідь.'
+    },
+
+    q2: {
+      a: '<strong>Ти мислиш як реаліст</strong> — світ існує незалежно від спостерігача. Це сміливо: адже квантова фізика каже інше. Але саме ця позиція відкриває питання: якщо реальність існує сама по собі — що є її основою?',
+      b: 'Ти щойно погодився з філософом Джорджем Берклі: <strong>існує лише те, що сприймається</strong>. Але тоді: якщо ніхто не дивиться на Місяць — він зникає? І хто "тримає" реальність, коли ніхто не дивиться?',
+      c: '<strong>Це найчесніша відповідь — і найфілософськіша.</strong> Саме з цього "не знаю" починається справжній пошук. Сократ казав: "Я знаю лише те, що нічого не знаю" — і це зробило його наймудрішим.'
+    },
+
+    q3: {
+      a: 'Саме так думав Іммануїл Кант. <strong>Ти щойно визнав, що існує мораль, яка не залежить від думки більшості.</strong> Це називається об’єктивна етика — і це одна з найсильніших філософських позицій.',
+      b: 'Це чесна позиція — її поділяв Жан-Поль Сартр. Але вона має ціну: якщо мораль відносна, то й засудити путіна неможливо — він просто <strong>"грає за своїми правилами"</strong>. Чи готовий ти прийняти цей висновок?'
+    }
+  };
+
+  function selectOption(qId, optKey) {
+    // Clear previous selection
+    ['a', 'b', 'c'].forEach(function(key) {
+      const circle = document.getElementById(qId + '-' + key + '-circle');
+      if (circle) {
+        circle.classList.remove('selected');
+      }
+    });
+
+    // Mark selected
+    const selectedCircle = document.getElementById(qId + '-' + optKey + '-circle');
+    if (selectedCircle) {
+      selectedCircle.classList.add('selected');
+    }
+
+    // Show validation
+    const validationElement = document.getElementById('val-' + qId);
+    const validationText = validations[qId][optKey];
+
+    if (validationText) {
+      validationElement.innerHTML = validationText;
+      validationElement.classList.add('visible');
+    }
+
+    // Show next button
+    const nextButton = document.getElementById('next-' + qId);
+
+    if (nextButton) {
+      nextButton.classList.add('visible');
+    }
+  }
+</script>
+
+</body>
+</html>
