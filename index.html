@@ -64,9 +64,23 @@
   justify-content: center;
   text-align: center;
   background: #000;
+  position: relative;
+  overflow: hidden;
 }
-  #screen-start .logo-wrap {
-  margin-top: -50px;
+
+#screen-start .logo-wrap {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+#screen-start .start-tag {
+  position: absolute;
+  top: 165px;
+  left: 20px;
+  right: 20px;
 }
 
   .start-tag {
@@ -123,6 +137,7 @@
     letter-spacing: 0.5px;
     transition: transform 0.15s, box-shadow 0.15s;
     box-shadow: 0 4px 20px rgba(245,166,35,0.35);
+   margin-top: 20px;
   }
 
   .btn-start:hover {
