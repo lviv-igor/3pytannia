@@ -8,7 +8,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #0f0f1a;
+    background: #000000;
     color: #f0f0f0;
     min-height: 100vh;
   }
@@ -22,7 +22,6 @@
   }
   .screen.active { display: flex; }
 
-  /* ===== LOGO ===== */
   .logo-wrap {
     margin-bottom: 10px;
     text-align: center;
@@ -36,7 +35,7 @@
   #screen-start {
     justify-content: center;
     text-align: center;
-    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(160deg, #0a0a0a 0%, #0d0d1a 50%, #0a1a30 100%);
   }
   .start-tag {
     font-size: 11px;
@@ -68,7 +67,7 @@
   }
   .btn-start {
     background: #f5a623;
-    color: #0f0f1a;
+    color: #000000;
     border: none;
     padding: 16px 48px;
     font-size: 17px;
@@ -84,7 +83,7 @@
   /* ===== QUESTION SCREEN ===== */
   .q-screen {
     justify-content: flex-start;
-    background: #0f0f1a;
+    background: #000000;
   }
   .q-label {
     font-size: 11px;
@@ -104,7 +103,6 @@
     align-self: flex-start;
   }
 
-  /* Radio options */
   .options { width: 100%; margin-bottom: 0; }
   .option-row {
     display: flex;
@@ -112,7 +110,7 @@
     gap: 12px;
     padding: 10px 0;
     cursor: pointer;
-    border-bottom: 1px solid #1e1e2e;
+    border-bottom: 1px solid #1a1a1a;
   }
   .option-row:last-child { border-bottom: none; }
   .option-circle {
@@ -133,7 +131,7 @@
     content: '';
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: #0f0f1a;
+    background: #000000;
   }
   .option-text {
     font-size: 15px;
@@ -141,10 +139,9 @@
     line-height: 1.4;
   }
 
-  /* Validation card */
   .validation {
     display: none;
-    background: #1a1a2e;
+    background: #111111;
     border-left: 3px solid #f5a623;
     border-radius: 8px;
     padding: 14px 16px;
@@ -161,7 +158,7 @@
     display: none;
     margin-top: 20px;
     background: #f5a623;
-    color: #0f0f1a;
+    color: #000000;
     border: none;
     padding: 14px 40px;
     font-size: 16px;
@@ -178,16 +175,16 @@
   /* ===== FINAL SCREEN ===== */
   #screen-final {
     justify-content: flex-start;
-    background: linear-gradient(160deg, #1a1a2e 0%, #0f3460 100%);
+    background: linear-gradient(160deg, #0a0a0a 0%, #0a1a30 100%);
     text-align: center;
   }
-  .final-emoji { font-size: 48px; margin-bottom: 12px; }
   .final-title {
     font-size: 24px;
     font-weight: 900;
     color: #fff;
     margin-bottom: 10px;
     line-height: 1.2;
+    margin-top: 16px;
   }
   .final-desc {
     font-size: 15px;
@@ -197,7 +194,7 @@
   }
   .final-highlight {
     background: #f5a623;
-    color: #0f0f1a;
+    color: #000000;
     border-radius: 12px;
     padding: 14px 18px;
     font-size: 15px;
@@ -207,7 +204,7 @@
   }
   .final-safe {
     font-size: 12px;
-    color: #666;
+    color: #555;
     line-height: 1.6;
     margin-top: 10px;
   }
@@ -215,10 +212,8 @@
 </head>
 <body>
 
-<!-- ===== LOGO SVG (inline, reusable) ===== -->
 <template id="logo-tpl">
   <svg class="logo-svg" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
-    <!-- Barcode-style logo for "Зміни Світ" -->
     <rect x="30" y="20" width="6" height="40" fill="#f5a623"/>
     <rect x="40" y="20" width="3" height="40" fill="#f5a623"/>
     <rect x="47" y="20" width="6" height="40" fill="#f5a623"/>
@@ -239,17 +234,17 @@
   </svg>
 </template>
 
-<!-- ========== SCREEN 0: START ========== -->
+<!-- SCREEN 0: START -->
 <div id="screen-start" class="screen active">
   <div class="logo-wrap" id="logo-start"></div>
   <p class="start-tag">ГО «Зміни Світ» представляє</p>
   <h1 class="start-title">ПИТАННЯ<br>БЕЗ ГУГЛА</h1>
   <p class="start-sub1">10 великих запитань</p>
   <p class="start-sub2">Створи свій світоглядний профіль</p>
-  <button class="btn-start" onclick="goTo('screen-q1')">Почати →</button>
+  <button class="btn-start" onclick="goTo('screen-q1')">Почати</button>
 </div>
 
-<!-- ========== SCREEN Q1: Існування ========== -->
+<!-- SCREEN Q1 -->
 <div id="screen-q1" class="screen q-screen">
   <p class="q-label">Розминка · 1 з 3</p>
   <p class="q-text">До твого народження світ існував?</p>
@@ -268,10 +263,10 @@
     </label>
   </div>
   <div class="validation" id="val-q1"></div>
-  <button class="btn-next" id="next-q1" onclick="goTo('screen-q2')">Наступне питання →</button>
+  <button class="btn-next" id="next-q1" onclick="goTo('screen-q2')">Наступне питання</button>
 </div>
 
-<!-- ========== SCREEN Q2: Звук ========== -->
+<!-- SCREEN Q2 -->
 <div id="screen-q2" class="screen q-screen">
   <p class="q-label">Розминка · 2 з 3</p>
   <p class="q-text">Якщо дерево падає в лісі, де нікого немає — воно видає звук?</p>
@@ -290,10 +285,10 @@
     </label>
   </div>
   <div class="validation" id="val-q2"></div>
-  <button class="btn-next" id="next-q2" onclick="goTo('screen-q3')">Наступне питання →</button>
+  <button class="btn-next" id="next-q2" onclick="goTo('screen-q3')">Наступне питання</button>
 </div>
 
-<!-- ========== SCREEN Q3: Мораль ========== -->
+<!-- SCREEN Q3 -->
 <div id="screen-q3" class="screen q-screen">
   <p class="q-label">Розминка · 3 з 3</p>
   <p class="q-text">Якби всі люди на планеті вирішили, що катування дітей — це нормально, воно б таким і стало?</p>
@@ -308,24 +303,22 @@
     </label>
   </div>
   <div class="validation" id="val-q3"></div>
-  <button class="btn-next" id="next-q3" onclick="goTo('screen-final')">Далі →</button>
+  <button class="btn-next" id="next-q3" onclick="goTo('screen-final')">Далі</button>
 </div>
 
-<!-- ========== SCREEN FINAL ========== -->
-<div id="screen-final" class="screen" style="justify-content:flex-start; background: linear-gradient(160deg,#1a1a2e 0%,#0f3460 100%); text-align:center;">
-  <div class="logo-wrap" id="logo-final" style="margin-bottom:16px;"></div>
-  <div class="final-emoji">🧠</div>
+<!-- SCREEN FINAL -->
+<div id="screen-final" class="screen">
+  <div class="logo-wrap" id="logo-final"></div>
   <h2 class="final-title">Розминка пройдена!</h2>
   <p class="final-desc">Це були лише 3 вступні питання.<br>Попереду ще <strong style="color:#f5a623">10 великих запитань</strong> — і вони глибші.</p>
   <div class="final-highlight">
-    🍫 Підійди до волонтера — він задасть тобі 10 питань.<br>
+    Підійди до волонтера — він задасть тобі 10 питань.<br>
     Дай відповіді і отримай <strong>шоколадку або колу!</strong>
   </div>
-  <p class="final-safe">Без тиску і без зобов'язань.<br>Можеш піти в будь-який момент 😊</p>
+  <p class="final-safe">Без тиску і без зобов'язань.<br>Можеш піти в будь-який момент — ми просто любимо цікаві розмови.</p>
 </div>
 
 <script>
-// ---- Inject logo ----
 function injectLogo(targetId) {
   const tpl = document.getElementById('logo-tpl');
   const clone = tpl.content.cloneNode(true);
@@ -334,14 +327,12 @@ function injectLogo(targetId) {
 injectLogo('logo-start');
 injectLogo('logo-final');
 
-// ---- Navigation ----
 function goTo(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
   window.scrollTo(0,0);
 }
 
-// ---- Validations ----
 const validations = {
   q1: {
     a: '<strong>Тобто реальність існує незалежно від тебе.</strong> А тепер ще крок: якщо світ існував до тебе — він колись почався. І якщо він почався — звідки він взявся? Це питання, яке не відпускає.',
@@ -354,22 +345,19 @@ const validations = {
     c: '<strong>Це найчесніша відповідь — і найфілософськіша.</strong> Саме з цього "не знаю" починається справжній пошук. Сократ казав: "Я знаю лише те, що нічого не знаю" — і це зробило його наймудрішим.'
   },
   q3: {
-    a: 'Саме так думав Іммануїл Кант. <strong>Ти щойно визнав, що існує мораль, яка не залежить від думки більшості.</strong> Це називається об'єктивна етика — і це одна з найсильніших філософських позицій.',
+    a: 'Саме так думав Іммануїл Кант. <strong>Ти щойно визнав, що існує мораль, яка не залежить від думки більшості.</strong> Це називається об\'єктивна етика — і це одна з найсильніших філософських позицій.',
     b: 'Це чесна позиція — її поділяв Жан-Поль Сартр. Але вона має ціну: якщо мораль відносна, то й засудити путіна неможливо — він просто <strong>"грає за своїми правилами"</strong>. Чи готовий ти прийняти цей висновок?'
   }
 };
 
 function selectOption(qId, optKey) {
-  // Clear previous selection
   ['a','b','c'].forEach(k => {
     const el = document.getElementById(qId+'-'+k+'-circle');
     if (el) el.classList.remove('selected');
   });
-  // Mark selected
   const circle = document.getElementById(qId+'-'+optKey+'-circle');
   if (circle) circle.classList.add('selected');
 
-  // Show validation
   const valEl = document.getElementById('val-'+qId);
   const text = validations[qId][optKey];
   if (text) {
@@ -377,7 +365,6 @@ function selectOption(qId, optKey) {
     valEl.classList.add('visible');
   }
 
-  // Show next button
   const nextBtn = document.getElementById('next-'+qId);
   if (nextBtn) nextBtn.classList.add('visible');
 }
